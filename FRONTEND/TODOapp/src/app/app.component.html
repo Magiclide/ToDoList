@@ -1,0 +1,46 @@
+<div class="main">
+
+  <h1>Lista de tarefas Segura</h1>
+  <div *ngIf="usuarioLogado && usuarioADM==true">
+
+    <h1>Administrador!</h1>
+    <input class="lg-text-input" placeholder="Nome" #campoNovoItemUser />
+    <input class="lg-text-input" placeholder="Senha" #campoNovaSenha />
+
+    <button class="btn-primary" (click)="CREATE_usuario(campoNovoItemUser.value,campoNovaSenha.value)">
+      Cadastrar Usuario</button>
+    <ul>
+      <li *ngFor="let usuarioDoLoop of arraydeUsuario">
+        <app-item (removeUsuario)="removeUsuario(usuarioDoLoop)" [user]="usuarioDoLoop"
+          (modificaUsuario)="UPDATE_usuario(usuarioDoLoop)"></app-item>
+      </li>
+    </ul>
+  </div>
+  <div *ngIf=" usuarioLogado && !usuarioADM">
+    <h1>Usuario Comum!</h1>
+    <input class="lg-text-input" #campoNovoItem />
+    <button class="btn-primary" (click)="CREATE_tarefa(campoNovoItem.value)">
+      Adicionar Tarefa</button>
+    <ul>
+      <li *ngFor="let tarefaDoLoop of arrayDeTarefas">
+        <app-item-tarefa (remove)="remove(tarefaDoLoop)" [tarefa]="tarefaDoLoop"
+          (modificaTarefa)="UPDATE_tarefa(tarefaDoLoop)"></app-item-tarefa>
+      </li>
+    </ul>
+
+  </div>
+
+
+  <div *ngIf="!usuarioLogado">
+    <input #username placeholder="nome" class="lg-text-input" />
+    <BR>
+
+    <input type="password" #password placeholder="senha" class="lg-text-input" />
+    
+
+    <button class="btn-primary" (click)="login(username.value,password.value)">Login</button>
+  </div>
+  
+</div>
+
+<!-- data binding transferencia de dados do ts pro html por exemplo. Property bind passa do pai pro filho, do filho pro pai event binding-->

@@ -1,0 +1,24 @@
+<div class="item">
+    <div>
+        <label>Nome:</label>
+        <label for="user-nome">{{user.nome}}</label>
+    </div>
+    <label class="senha">Senha:</label>
+    <label for="user-senha" class="senha">{{user.senha}}</label>
+    <div *ngIf="!emEdicao" class="btn-wrapper">
+        <button class="btn" (click)="emEdicao = true ">Editar</button>
+        <button class="btn btn-warn" (click)="removeUsuario.emit()">Remover</button>
+    </div>
+    <div *ngIf="emEdicao">
+        <input class="sm-text-input" #editedItem placeholder="escreva o novo nome aqui" [value]="user.nome"
+            (keyup.enter)="user.nome=editedItem.value; emEdicao
+    = false;">
+        <input class="sm-text-input" #editedSenha placeholder="Escreve a senha" [value]="user.senha" (keyup.enter)="user.senha=editedItem.value; emEdicao
+        = false;" />
+        <div class="btn-wrapper">
+            <button class="btn" (click)="emEdicao = false ">Cancelar</button>
+            <button class="btn btn-save" (click)="user.nome=editedItem.value; user.senha=editedSenha.value;  emEdicao
+   = false;  modificaUsuario.emit()">Salvar</button>
+        </div>
+    </div>
+</div>
